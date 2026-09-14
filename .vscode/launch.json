@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug e2e tests (Jest)",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--inspect-brk", "node_modules/.bin/jest", "--runInBand", "--testTimeout=600000"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

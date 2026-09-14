@@ -1,0 +1,35 @@
+services:
+  api:
+    command: >
+      sh -c "npm run start:prod"
+    depends_on:
+      - postgres
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: ${DB_USERNAME:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME:-users_db}
+      DB_SYNCHRONIZE: ${DB_SYNCHRONIZE:-true}
+      POKEMON_API_BASE_URL: ${POKEMON_API_BASE_URL:-https://pokeapi.co/api/v2/pokemon}
+    ports:
+      - 3000:3000
+  postgres:
+    image: postgres:16-alpine
+    container_name: users-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-users_db}
+    ports:
+      - '${DB_PORT:-5433}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
