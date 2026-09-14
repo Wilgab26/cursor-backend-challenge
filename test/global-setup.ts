@@ -22,6 +22,6 @@ export default async function globalSetup(): Promise<void> {
     await client.query(`DROP DATABASE IF EXISTS "${testDbName}" WITH (FORCE)`);
     await client.query(`CREATE DATABASE "${testDbName}"`);
   } finally {
-    await client.end();
+    await client.end();  
   }
 }
