@@ -19,6 +19,7 @@ npm start                 # run compiled output: node dist/main
 npm run start:dev         # run directly from src/ via ts-node (no build step, no watch)
 npm run start:debug       # ts-node with --inspect-brk for debugger attach
 npm test                  # run the e2e/integration suite from the host (jest, see below) — needs docker:test:up first, NOT docker:up
+npm run test:debug        # jest --runInBand --testTimeout=600000 with --inspect-brk, for debugger attach on the e2e suite
 ```
 
 `npm test` run bare like this hits `docker:test:up`'s `postgres-test` container directly from the host (`localhost:5434`) — fast for local iteration, no image rebuild. `./up_test.sh` instead runs the whole thing fully containerized (see below) — slower (rebuilds the image) but matches what CI would run and needs nothing installed locally beyond Docker.
@@ -40,6 +41,8 @@ Once the app is running, it serves:
 - API: `http://localhost:3001/api` (global prefix is `api`, set in [src/main.ts](src/main.ts))
 - Swagger UI: `http://localhost:3001/docs`
 - Port is `process.env.PORT ?? 3001`.
+
+**Gotcha:** the full containerized `api` service in [docker-compose.yml](docker-compose.yml) is on a different port than local dev — it hardcodes `PORT: 3000` and maps host `3000:3000` (matching the `Dockerfile`'s `EXPOSE 3000`), while `start:dev`/`.env.example` default to `3001`. Docs/Swagger UI is on `:3000` when running via `docker compose up` for the `api` service (not `up_dev.sh`, which uses `docker:up` for Postgres only and runs the app locally via `start:dev` on `3001`).
 
 ## Architecture
 

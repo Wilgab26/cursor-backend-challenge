@@ -3,15 +3,24 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
 jobs:
-  build_and_test: # this can be any name you choose
+  test:
+    # machine executor gives us Docker + Docker Compose, needed to run up_test.sh
+    # the same way it's documented to run locally (fully containerized e2e + postgres-test).
+    machine:
+      image: ubuntu-2204:current
+    steps:
+      - checkout
+      - run:
+          name: Run e2e tests (dockerized Postgres, via up_test.sh)
+          command: |
+            chmod +x ./up_test.sh
+            ./up_test.sh
+  build:
     executor: node/default # use the default executor defined within the orb
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-      - run:
-          command: npm run test
-          name: Run tests
       - run:
           command: npm run build
           name: Build app
@@ -22,4 +31,5 @@ jobs:
 workflows:
   build_test_deploy: # this can be any name you choose
     jobs:
-      - build_and_test
+      - test
+      - build
