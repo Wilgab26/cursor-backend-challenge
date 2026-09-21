@@ -2,6 +2,10 @@
 
 A minimal NestJS API scaffold exposing a `users` resource backed by PostgreSQL via TypeORM, with pokemon data enriched live from PokeAPI. See [CLAUDE.md](CLAUDE.md) for architecture details.
 
+### BADGES
+
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Wilgab26/cursor-backend-challenge/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Wilgab26/cursor-backend-challenge/tree/master)
+
 ### Features
 - Create new Users with their Pokemon Ids
 - Get Users list
