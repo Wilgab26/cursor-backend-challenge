@@ -19,7 +19,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: sh -c "npm test"
+    command: sh -c "npm run test:cov"
+    # Expose the coverage report (lcov.info) to the host so CI can upload it to Coveralls
+    volumes:
+      - ./coverage:/app/coverage
     depends_on:
       postgres-test:
         condition: service_healthy

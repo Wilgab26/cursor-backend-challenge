@@ -15,6 +15,7 @@
     "docker:test:up": "docker compose -f docker-compose.test.yml up -d postgres-test",
     "docker:test:down": "docker compose -f docker-compose.test.yml down",
     "test": "jest",
+    "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --testTimeout=600000"
   },
   "dependencies": {
