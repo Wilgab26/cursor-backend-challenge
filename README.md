@@ -5,6 +5,7 @@ A minimal NestJS API scaffold exposing a `users` resource backed by PostgreSQL v
 ### BADGES
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Wilgab26/cursor-backend-challenge/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Wilgab26/cursor-backend-challenge/tree/main)
+[![Coverage Status](https://coveralls.io/repos/github/Wilgab26/cursor-backend-challenge/badge.svg?branch=main)](https://coveralls.io/github/Wilgab26/cursor-backend-challenge?branch=main)
 
 ### Features
 - Create new Users with their Pokemon Ids
