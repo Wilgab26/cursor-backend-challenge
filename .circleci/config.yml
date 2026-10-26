@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   node: circleci/node@5.2
-  coveralls: coveralls/coveralls@2.2.5
 
 jobs:
   test:
@@ -19,8 +18,13 @@ jobs:
             ./up_test.sh
       # up_test.sh runs jest with --coverage and mounts ./coverage out of the e2e container.
       # Requires COVERALLS_REPO_TOKEN set in the CircleCI project's environment variables.
-      - coveralls/upload:
-          coverage_file: ./coverage/lcov.info
+      # Uses Coveralls' Universal Coverage Reporter directly rather than the coveralls orb,
+      # since the org doesn't allow uncertified public orbs.
+      - run:
+          name: Upload coverage to Coveralls
+          command: |
+            curl -sL https://coveralls.io/coveralls-linux.tar.gz | tar -xz
+            ./coveralls report ./coverage/lcov.info
   build:
     executor: node/default
     steps:
